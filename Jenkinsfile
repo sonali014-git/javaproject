@@ -9,7 +9,7 @@ pipeline {
 
         stage('Clone') {
             steps {
-                git 'git 'https://github.com/sonali014-git/javaproject.git''
+                git'https://github.com/sonali014-git/javaproject.git'
             }
         }
 
