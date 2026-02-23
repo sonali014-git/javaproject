@@ -1,17 +1,15 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'maven'
+    }
+
     environment {
-        IMAGE_NAME = "your-dockerhub-sonalidocker11/java-app"
+        DOCKER_IMAGE = "sonali014/java-app"
     }
 
     stages {
-
-        stage('Clone') {
-            steps {
-                git'https://github.com/sonali014-git/javaproject.git'
-            }
-        }
 
         stage('Build') {
             steps {
@@ -21,16 +19,25 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t $IMAGE_NAME .'
+                sh 'docker build -t $DOCKER_IMAGE .'
+            }
+        }
+
+        stage('Docker Login') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockercreds',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+                }
             }
         }
 
         stage('Docker Push') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                    sh 'docker login -u $USER -p $PASS'
-                    sh 'docker push $IMAGE_NAME'
-                }
+                sh 'docker push $DOCKER_IMAGE'
             }
         }
     }
