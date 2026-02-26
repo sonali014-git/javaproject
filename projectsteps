@@ -1,0 +1,15 @@
+👉 Project: End-to-End DevOps CI/CD Pipeline with Kubernetes Monitoring
+
+
+
+* Designed and implemented a complete CI/CD pipeline using Jenkins integrated with GitHub.
+
+* Built Java application using Maven and created Docker images using Dockerfile.
+
+* Pushed Docker images to Docker Hub and deployed containers on Kubernetes (Minikube).
+
+* Automated deployment using Kubernetes manifests (Deployment & Service).
+
+* Configured Jenkins with Kubernetes using kubeconfig for seamless deployment.
+
+* Implemented monitoring using Prometheus and Grafana to visualize system and application metrics.
